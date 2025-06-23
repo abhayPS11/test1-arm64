@@ -1,0 +1,16 @@
+name: Deploy NGINX 
+ 
+on: 
+  push: 
+    branches: [ main ] 
+ 
+jobs: 
+  deploy: 
+    runs-on: self-hosted 
+    steps: 
+      - name: Install NGINX 
+        run: | 
+          sudo apt update 
+          sudo apt install -y nginx 
+      - name: Start NGINX 
+        run: sudo systemctl start nginx 
