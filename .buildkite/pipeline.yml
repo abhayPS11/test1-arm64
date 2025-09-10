@@ -1,6 +1,4 @@
-# .buildkite/pipeline.yml
 steps:
-  # (Your existing build step goes here)
   - label: ":docker: Build and Publish Multi-arch Image"
     plugins:
       - docker#v5.3.0:
@@ -11,20 +9,17 @@ steps:
       - docker buildx create --name multiarch-builder --use
       - docker buildx inspect --bootstrap
       - docker buildx build --platform linux/amd64,linux/arm64 --push
-        --tag "your-docker-hub-user/your-app:${BUILDKITE_BUILD_NUMBER}"
+        --tag "abhay900/test1-arm64:${BUILDKITE_BUILD_NUMBER}"
         --file ./Dockerfile .
     agents:
       - "queue=arm64"
-
+  
   - wait
-
+  
   - label: ":test_tube: Verify ARM64 Build"
     commands:
-      # Run the image and check its reported architecture.
-      # The agent on your ARM VM will pull the ARM64 variant automatically.
-      - docker run --rm "your-docker-hub-user/your-app:${BUILDKITE_BUILD_NUMBER}" | grep "arm64"
+      - docker run --rm "abhay900/test1-arm64:${BUILDKITE_BUILD_NUMBER}" | grep "arm64"
     agents:
-      # This step must also run on the ARM agent to verify the correct image
       - "queue=arm64"
     depends_on:
       - "Build and Publish Multi-arch Image"
