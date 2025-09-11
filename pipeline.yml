@@ -1,0 +1,6 @@
+steps:
+  - label: "Build ARM Docker Image"
+    command: "scripts/build.sh"
+    agents:
+      queue: "arm64"
+

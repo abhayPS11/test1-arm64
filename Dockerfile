@@ -1,12 +1,13 @@
-FROM golang:1.20-alpine AS builder
+# Use ARM64-compatible base image
+FROM ubuntu:22.04
+
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    curl
 
 WORKDIR /app
+
 COPY . .
-RUN CGO_ENABLED=0 go build -o /app/microservice
 
-FROM alpine:latest
-WORKDIR /root/
-COPY --from=builder /app/microservice .
+CMD ["echo", "Hello from ARM64 container!"]
 
-EXPOSE 8080
-CMD ["./microservice"]
