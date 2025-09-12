@@ -2,13 +2,12 @@ env:
   DOCKER_USERNAME: "abhay900"
   DOCKER_PASSWORD: "Abhay@1#234"
 
-steps:
-  - label: "Build and push multi-arch image"
+    - label: "Build and push multi-arch image"
     commands:
       - docker buildx rm mybuilder || true
       - docker buildx create --use --name mybuilder
       - docker buildx inspect --bootstrap
-      - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
       - docker buildx build --platform linux/amd64,linux/arm64 -t abhay900/multi-arch-app:latest --push .
     agents:
       queue: arm64
