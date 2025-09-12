@@ -1,8 +1,9 @@
 env:
   DOCKER_USERNAME: "abhay900"
-  DOCKER_PASSWORD: "Abhay@1#234"
+  DOCKER_PASSWORD: "abhay12"
 
-    - label: "Build and push multi-arch image"
+steps:
+  - label: "Build and push multi-arch image"
     commands:
       - docker buildx rm mybuilder || true
       - docker buildx create --use --name mybuilder
