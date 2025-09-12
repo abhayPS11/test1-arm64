@@ -1,6 +1,6 @@
 env:
   DOCKER_USERNAME: "abhay900"
-  DOCKER_PASSWORD: "abhay12"
+  DOCKER_PASSWORD: "dckr_pat_GwNwQTgQ3EV1Qwml_cScNHt-MJI"
 
 steps:
   - label: "Build and push multi-arch image"
@@ -12,3 +12,4 @@ steps:
       - docker buildx build --platform linux/amd64,linux/arm64 -t abhay900/multi-arch-app:latest --push .
     agents:
       queue: arm64
+
