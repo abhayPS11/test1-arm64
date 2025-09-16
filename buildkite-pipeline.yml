@@ -1,6 +1,6 @@
 env:
   DOCKER_USERNAME: "abhay900"
-  DOCKER_PASSWORD: "dckr_pat_GwNwQTgQ3EV1Qwml_cScNHt-MJI"
+  DOCKER_PASSWORD: "newly_created_read_write_token_here"
 
 steps:
   - label: "Build and push multi-arch image"
@@ -9,7 +9,6 @@ steps:
       - docker buildx create --use --name mybuilder
       - docker buildx inspect --bootstrap
       - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - docker buildx build --platform linux/amd64,linux/arm64 -t abhay900/multi-arch-app:latest --push .
+      - docker buildx build --platform linux/amd64,linux/arm64 -t ${DOCKER_USERNAME}/multi-arch-app:latest --push .
     agents:
-      queue: arm64
-
+      queue: buildkite-queue
